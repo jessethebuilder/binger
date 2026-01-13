@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :campaign do
-    sequence(:title) { |n| "Campaign #{n}" }
+    title { Faker::Lorem.sentence }
     status { Campaign::STATUSES.sample }
   end
 end

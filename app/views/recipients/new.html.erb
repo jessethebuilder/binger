@@ -1,0 +1,46 @@
+<h1 class="font-bold text-3xl">
+  <span class="font-light">New Recipient for:</span> <%= @recipient.campaign.title %>
+</h1>
+
+<div class="mt-6">
+  <%= form_for @recipient do |form| %>
+    <%= render partial: 'layouts/errors', locals: {form: form} %>
+    <%= form.hidden_field :campaign_id %>
+    <div class="grid grid-cols-2 gap-6">
+      <div>
+        <%= form.label :name,
+                       class: 'block text-sm font-medium text-gray-700 dark:text-white' %>
+        <%= form.text_field :name,
+                            autofocus: true,
+                            required: true,
+                            class: 'mt-1 block w-full rounded-md border border-gray-300 py-2
+                                    px-3 shadow-sm focus:border-blue-500 focus:outline-none
+                                    focus:ring-blue-500 sm:text-sm' %>
+      </div>
+      <div>
+        <%= form.label :email,
+                       class: 'block text-sm font-medium text-gray-700 dark:text-white' %>
+        <%= form.email_field :email,
+                             class: 'mt-1 block w-full rounded-md border border-gray-300 py-2
+                                     px-3 shadow-sm focus:border-blue-500 focus:outline-none
+                                     focus:ring-blue-500 sm:text-sm' %>
+      </div>
+      <div>
+        <%= form.label :phone,
+                       class: 'block text-sm font-medium text-gray-700 dark:text-white' %>
+        <%= form.phone_field :phone,
+                             class: 'mt-1 block w-full rounded-md border border-gray-300 py-2
+                                     px-3 shadow-sm focus:border-blue-500 focus:outline-none
+                                     focus:ring-blue-500 sm:text-sm' %>
+      </div>
+    </div>
+    <div class="mt-6">
+      <%= form.submit 'Create and Add Another', class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none hover:cursor-pointer' %>
+      <%= form.submit 'Create and Exit', class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none hover:cursor-pointer' %>
+      <%= link_to 'Back',
+                  @recipient.campaign,
+                  class: 'ml-auto text-gray-500 hover:text-gray-800 font-medium text-lg' %>
+
+    </div>
+  <% end %>
+</div>

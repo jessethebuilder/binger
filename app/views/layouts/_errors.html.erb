@@ -1,9 +1,8 @@
-<% obj ||= form.obj %>
 <div id="form-errors">
-  <% if obj.errors.any? %>
+  <% if form.object.errors.any? %>
     <div class="rounded-md bg-red-50 p-4 mb-4 text-red-800 mt-2">
       <ul>
-        <% obj.errors.full_messages.uniq.each do |message| %>
+        <% form.object.errors.full_messages.uniq.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

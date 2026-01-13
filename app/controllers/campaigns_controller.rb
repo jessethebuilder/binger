@@ -1,10 +1,17 @@
 class CampaignsController < ApplicationController
+  before_action :set_campaign, only: [:dispatch_campaign, :show]
+
+  def dispatch_campaign
+    @campaign.recipients.update_all(status: 'pending', updated_at: Time.current)
+    DispatchCampaignJob.perform_async
+    redirect_to @campaign
+  end
+
   def index
     @campaigns = Campaign.all
   end
 
   def show
-    @campaign = Campaign.find(params[:id])
   end
 
   def new
@@ -17,11 +24,15 @@ class CampaignsController < ApplicationController
     if @campaign.save
       redirect_to @campaign
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   private
+
+  def set_campaign
+    @campaign = Campaign.find(params[:id])
+  end
 
   def campaign_params
     params.require(:campaign).permit(:title, :status)

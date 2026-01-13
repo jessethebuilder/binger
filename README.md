@@ -64,7 +64,7 @@ is not part of the specification at all, but, irl, it will likely be necessary.
 
 7. I would include flash messages.
 
-8. I would include a navigation bar.
+8. I would include more mobile-ready and dark-mode styles.
 
 9. I would abstract common Tailwind classes for, say, buttons, tables, headings,
 and whatnot.

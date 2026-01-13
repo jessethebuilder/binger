@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :campaigns, only: [:index, :show, :new, :create]
+  resources :campaigns, only: [:index, :show, :new, :create] do
+    member do
+      get :dispatch_campaign
+    end
+  end
 
   root to: 'campaigns#index'
 

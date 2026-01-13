@@ -62,4 +62,6 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(%r{\Aapp/lib/circle/client/.+\.rb\z}) { 'spec/lib/circle/client_spec.rb' }
 
   watch(/^app\/lib\/(.+).rb$/) { |m| puts m[1] }
+
+  watch(/^app\/controllers\/(.+)_controller.rb$/) { |m| rspec.spec.call("spec/requests/#{m[1]}_spec.rb") }
 end

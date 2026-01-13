@@ -19,6 +19,7 @@ class DispatchCampaignJob
   end
 
   def send_email(recipient)
+    sleep(Random.rand(1..3.seconds)) unless Rails.env.test?
     recipient.update(status: 'sent')
   end
 end
