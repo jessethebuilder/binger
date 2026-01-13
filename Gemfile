@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.3.7"
 
 gem "rails", "~> 7.1.3"
 
@@ -42,4 +42,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'rails-controller-testing'
+  gem 'guard-rspec'
+  gem 'database_cleaner-active_record'
 end
