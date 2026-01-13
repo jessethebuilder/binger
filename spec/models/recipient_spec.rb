@@ -10,19 +10,24 @@ describe Recipient, type: :model do
   end
 
   describe 'Associations' do
-    it { should belogn_to(:campaign).required }
+    it { should belong_to(:campaign).required }
   end # Associations
 
   describe 'Validations' do
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name) }
+    it { should validate_inclusion_of(:status).in_array(Recipient::STATUSES).allow_nil }
 
-    it { should validate_presence_of(:status) }
-    it { should validate_inclusion_of(:status).in_array(Recipient::STATUSES) }
+    it 'should validate presence of :email AND :phone are not both blank' do
+      @recipient.email = nil
+      @recipient.phone = nil
+      @recipient.valid?
+      @recipient.errors[:email].should == ['and phone cannot both be blank']
+    end
+
   end # Validations
 
   describe 'Methods' do
-    
+
   end # Methods
 
   describe 'Callbacks' do

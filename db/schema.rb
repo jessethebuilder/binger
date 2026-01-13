@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_13_063146) do
     t.string "name", null: false
     t.string "email"
     t.string "phone"
-    t.string "status", null: false
+    t.string "status"
     t.bigint "campaign_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
