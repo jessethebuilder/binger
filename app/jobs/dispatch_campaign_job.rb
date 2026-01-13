@@ -4,6 +4,7 @@ class DispatchCampaignJob
   def perform(campaign_id)
     @campaign = Campaign.find(campaign_id)
     dispatch_campaign
+    @campaign.update(status: 'completed')
   end
 
   private

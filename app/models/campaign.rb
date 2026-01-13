@@ -5,4 +5,9 @@ class Campaign < ApplicationRecord
 
   validates :title, presence: true
   validates :status, presence: true, inclusion: {in: STATUSES}
+
+  def reset!
+    update(status: 'pending')
+    recipients.update_all(status: nil)
+  end
 end

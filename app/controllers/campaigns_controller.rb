@@ -2,8 +2,9 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:dispatch_campaign, :show]
 
   def dispatch_campaign
-    @campaign.recipients.update_all(status: 'pending', updated_at: Time.current)
-    DispatchCampaignJob.perform_async
+    @campaign.recipients.update_all(status: 'queued', updated_at: Time.current)
+    @campaign.update(status: 'processing')
+    DispatchCampaignJob.perform_async(@campaign.id)
     redirect_to @campaign
   end
 

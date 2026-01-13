@@ -30,7 +30,7 @@ To start Postgres and Redis in Docker, in one console:
 
 `docker-compose up`
 
-To start the web server, Redis, and the Tailwind compiler:
+To start the web server, Redis, Sidekiq, and the Tailwind compiler:
 
 `./bin/dev`
 

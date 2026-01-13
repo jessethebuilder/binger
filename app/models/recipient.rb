@@ -8,6 +8,9 @@ class Recipient < ApplicationRecord
 
   validate :email_and_phone_cannot_be_blank
 
+  scope :sent, -> { where(status: 'sent') }
+  scope :failed, -> { where(status: 'failed') }
+
   private
 
   def email_and_phone_cannot_be_blank

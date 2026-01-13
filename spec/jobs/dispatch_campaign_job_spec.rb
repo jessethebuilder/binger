@@ -21,5 +21,11 @@ describe DispatchCampaignJob, type: :job do
            .to change { @recipient.reload.status }
            .from(nil).to('failed')
   end
+
+  it 'should update @campagin :status to "completed"' do
+    @campaign.update!(status: 'pending')
+    expect { @job.perform(@campaign.id) }
+           .to change { @campaign.reload.status }
+           .to('completed')
+  end
 end
-# Net::SMTPAuthenticationError

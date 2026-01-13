@@ -11,8 +11,14 @@ describe CampaignsController, type: :request do
              .to change { @recipient.reload.status }.from(nil).to('pending')
     end
 
+    it 'should update @campaign status to "processing"' do
+      @campaign.update(status: 'pending')
+      expect { get "/campaigns/#{@campaign.to_param}/dispatch_campaign" }
+             .to change { @campaign.reload.status }.to('processing')
+    end
+
     it 'should call DispatchCampaignJob' do
-      expect(DispatchCampaignJob).to receive(:perform_async)
+      expect(DispatchCampaignJob).to receive(:perform_async).with(@campaign.id)
       get "/campaigns/#{@campaign.to_param}/dispatch_campaign"
     end
   end # GET :dispatch_campaign
