@@ -47,3 +47,9 @@ most improvements would be in UI/UX.
 circumstances. `Campaigns` and `Recipients` could be associated through a model
 like `CampaignRecipient` which would also hold the sending :status of that
 `Campaign` for that `Recipient`.
+
+3. I would include much more robust error checking in
+`DispatchCampaignJob#dispatch_campaign`. Here, I just selected a possible error,
+but there are many other possibilities. I would likely install the Airbrake gem
+and then single out each specific error. There are  several scenarios in which a
+retry would be more appropriate than flagging the `Recipient` as "failed".

@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :recipient do
     name { Faker::Name.name }
-    status { Recipient::STATUSES.sample }
     campaign
 
     after(:build) do |recipient|

@@ -14,6 +14,8 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
 
+gem 'sidekiq'
+
 gem "jbuilder"
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
