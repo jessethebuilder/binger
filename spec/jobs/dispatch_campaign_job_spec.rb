@@ -11,7 +11,8 @@ describe DispatchCampaignJob, type: :job do
            .from(nil).to('sent')
   end
 
-  it "should update @recipient's status to 'failed' on Net::SMTPAuthenticationError" do
+  it "should update @recipient's status to 'failed' on
+      Net::SMTPAuthenticationError" do
     allow(@job).to receive(:send_email)
                .with(@recipient)
                .and_raise(Net::SMTPAuthenticationError.new('Error Message'))

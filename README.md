@@ -53,3 +53,18 @@ like `CampaignRecipient` which would also hold the sending :status of that
 but there are many other possibilities. I would likely install the Airbrake gem
 and then single out each specific error. There are  several scenarios in which a
 retry would be more appropriate than flagging the `Recipient` as "failed".
+
+4. I would add request specs for every route, even if it is fairly trivial.
+
+5. I would include more browser automation specs with Capybara.
+
+6. I would include more robust CRUD for the Recipient and Campaign models. The
+ability to edit and delete. The ability to remove Recipients. Technically, this
+is not part of the specification at all, but, irl, it will likely be necessary.
+
+7. I would include flash messages.
+
+8. I would include a navigation bar.
+
+9. I would abstract common Tailwind classes for, say, buttons, tables, headings,
+and whatnot.

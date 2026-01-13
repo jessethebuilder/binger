@@ -12,8 +12,11 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <%= render partial: 'layouts/navigation' %>
+    <main>
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 mt-8">
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>
