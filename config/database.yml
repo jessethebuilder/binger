@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DB_USER'] || 'root' %>
+  password: <%= ENV['DB_PASSWORD'] || 'password' %>
+  port: 5432
+development:
+  <<: *default
+  database: binger_development
+  host: localhost
+test:
+  <<: *default
+  database: binger_test
+  host: localhost
+stage:
+  <<: *default
+  database: binger_stage
+  username: binger_stage_user
+  password: <%= ENV["binger_DATABASE_PASSWORD"] %>
+production:
+  <<: *default
+  database: binger_production
+  username: binger
+  password: <%= ENV["binger_DATABASE_PASSWORD"] %>
