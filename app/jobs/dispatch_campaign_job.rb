@@ -1,11 +1,11 @@
 class DispatchCampaignJob
   include Sidekiq::Job
-  # include Turbo::StreamsHelper
 
   def perform(campaign_id)
     @campaign = Campaign.find(campaign_id)
     dispatch_campaign
     @campaign.update(status: 'completed')
+    update_status
   end
 
   private
@@ -29,6 +29,7 @@ class DispatchCampaignJob
 
   def broadcast_update(recipient)
     update_recipient(recipient)
+    update_status
   end
 
   def update_recipient(recipient)
@@ -37,6 +38,15 @@ class DispatchCampaignJob
       target: "recipient_#{recipient.id}",
       partial: "campaigns/recipient",
       locals: { recipient: recipient }
+    )
+  end
+
+  def update_status
+    Turbo::StreamsChannel.broadcast_update_to(
+      [@campaign, :dispatch_campaign_job_channel],
+      target: "campaign_status",
+      partial: "campaigns/status",
+      locals: { campaign: @campaign }
     )
   end
 end

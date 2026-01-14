@@ -1,7 +1,7 @@
 describe 'Campaigns', type: :feature, js: true do
   describe 'Showing' do
     before do
-      @campaign = create(:campaign)
+      @campaign = create(:campaign, :pending)
       @recipient = create(:recipient, campaign: @campaign)
     end
 
@@ -24,6 +24,20 @@ describe 'Campaigns', type: :feature, js: true do
           visit "/campaigns/#{@campaign.to_param}"
           expect { click_link('Dispatch Campaign') }
                  .to change { recipient_status }.to('Sent')
+        end
+
+        it 'should update Status of @campaign' do
+          visit "/campaigns/#{@campaign.to_param}"
+          expect { click_link('Dispatch Campaign') && sleep(2) }
+                 .to change { find("#campaign_status .status").text }
+                 .from('Status: Pending').to('Status: Completed')
+        end
+
+        it 'should update Recipient counter' do
+          visit "/campaigns/#{@campaign.to_param}"
+          expect { click_link('Dispatch Campaign') && sleep(2) }
+                 .to change { find("#campaign_status .sent_count").text }
+                 .from('Sent: 0 of 1').to('Sent: 1 of 1')
         end
       end # Dispatching Campaigns
     end # Recipients

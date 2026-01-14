@@ -1,3 +1,9 @@
-Status: <%= campaign.status.titlecase %><br>
-Sent: <%= campaign.recipients.sent.count + campaign.recipients.failed.count %>
-of <%= campaign.recipients.count %>
+<div class="status">Status: <%= campaign.status.titlecase %></div>
+<div class="sent_count">
+  Sent: <%= campaign.recipients.sent.count + campaign.recipients.failed.count %>
+  of <%= campaign.recipients.count %>
+</div>
+<div class="failed_count">
+  Failed: <%= campaign.recipients.failed.count %>
+  of <%= campaign.recipients.count %>
+</div>
