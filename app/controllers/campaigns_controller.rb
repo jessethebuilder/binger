@@ -4,7 +4,7 @@ class CampaignsController < ApplicationController
   def dispatch_campaign
     @campaign.recipients.update_all(status: 'queued', updated_at: Time.current)
     @campaign.update(status: 'processing')
-    DispatchCampaignJob.perform_async(@campaign.id)
+    DispatchCampaignJob.perform_in(1.second, @campaign.id) # The delay avoids a possible race condition as page loads.
     redirect_to @campaign
   end
 

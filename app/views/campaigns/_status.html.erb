@@ -1,0 +1,3 @@
+Status: <%= campaign.status.titlecase %><br>
+Sent: <%= campaign.recipients.sent.count + campaign.recipients.failed.count %>
+of <%= campaign.recipients.count %>

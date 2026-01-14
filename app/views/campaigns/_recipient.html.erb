@@ -1,0 +1,6 @@
+<%= content_tag :tr, id: "recipient_#{recipient.id}" do %>
+  <td class="py-2"><%= recipient.name %></td>
+  <td class="status py-2"><%= recipient.status&.titlecase %></td>
+  <td class="py-2"><%= recipient.email %></td>
+  <td class="py-2"><%= recipient.phone %></td>
+<% end %>

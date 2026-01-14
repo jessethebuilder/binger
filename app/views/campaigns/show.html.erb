@@ -1,25 +1,29 @@
 <div class="flex items-center">
   <div>
     <h1 class="font-bold text-3xl"><%= @campaign.title %></h1>
-    Status: <%= @campaign.status.titlecase %><br>
-    Sent: <%= @campaign.recipients.sent.count + @campaign.recipients.failed.count %> 
-    of <%= @campaign.recipients.count %>
+    <turbo-frame id="campaign_status">
+      <%= render partial: 'campaigns/status', locals: {campaign: @campaign} %>
+    </turbo-frame>
   </div>
   <div class="ml-auto">
-    <% unless @campaign.recipients.empty? %>
-      <%= link_to 'Dispatch Campaign',
-                  dispatch_campaign_campaign_path,
-                  class: 'text-white bg-red-700 hover:bg-red-800 focus:ring-4
-                          focus:ring-red-300 font-medium rounded-lg text-sm px-5
+    <% if @campaign.status == 'pending' || true%>
+      <% unless @campaign.recipients.empty? %>
+        <%= link_to 'Dispatch Campaign',
+                    dispatch_campaign_campaign_path,
+                    class: 'text-white bg-red-700 hover:bg-red-800 focus:ring-4
+                            focus:ring-red-300 font-medium rounded-lg text-sm px-5
+                            py-2.5 me-2 mb-2 focus:outline-none' %>
+      <% end %>
+      <%= link_to 'Add Recipients',
+                  new_recipient_path(campaign_id: @campaign.id),
+                  class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+                          focus:ring-blue-300 font-medium rounded-lg text-sm px-5
                           py-2.5 me-2 mb-2 focus:outline-none' %>
     <% end %>
-    <%= link_to 'Add Recipients',
-                new_recipient_path(campaign_id: @campaign.id),
-                class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
-                        focus:ring-blue-300 font-medium rounded-lg text-sm px-5
-                        py-2.5 me-2 mb-2 focus:outline-none' %>
   </div>
 </div>
+
+<%= turbo_stream_from [@campaign, :dispatch_campaign_job_channel] %>
 
 <table class="text-left min-w-full divide-y divide-gray-300 mt-6">
   <thead>
@@ -32,12 +36,7 @@
   </thead>
   <tbody>
     <% @campaign.recipients.each do |recipient| %>
-      <%= content_tag :tr, class: 'recipient', data: {id: recipient.id} do %>
-        <td class="py-2"><%= recipient.name %></td>
-        <td class="py-2"><%= recipient.status&.titlecase %></td>
-        <td class="py-2"><%= recipient.email %></td>
-        <td class="py-2"><%= recipient.phone %></td>
-      <% end %>
+      <%= render partial: 'campaigns/recipient', locals: {recipient: recipient} %>
     <% end %>
   </tbody>
 </table>
