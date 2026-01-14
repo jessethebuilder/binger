@@ -1,6 +1,6 @@
 # README
 
-TODO: Summary goes here.
+Test application for sending pretend emails and watching them on a live dashboard.
 
 ## Development
 
